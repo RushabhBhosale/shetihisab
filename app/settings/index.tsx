@@ -255,6 +255,12 @@ export default function SettingsScreen() {
           ) : null}
 
           <SettingRow
+            icon="map"
+            label={t('settings.manageFarms')}
+            onPress={() => router.push('/farms')}
+          />
+
+          <SettingRow
             danger
             icon="trash-2"
             label={t('settings.resetData')}

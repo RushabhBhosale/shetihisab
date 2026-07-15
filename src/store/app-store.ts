@@ -4,7 +4,13 @@ import { initializeDatabase } from '@/database/client';
 import { profileRepository } from '@/database/repositories/profile-repository';
 import { settingsRepository } from '@/database/repositories/settings-repository';
 import { changeAppLanguage } from '@/i18n';
-import type { AppLanguage, AppProfile, ProfileInput, TextSizePreference } from '@/types/app';
+import type {
+  AppLanguage,
+  AppProfile,
+  AreaUnit,
+  ProfileInput,
+  TextSizePreference,
+} from '@/types/app';
 
 type InitializationStatus = 'idle' | 'loading' | 'ready' | 'error';
 
@@ -12,6 +18,7 @@ interface AppState {
   initializationStatus: InitializationStatus;
   language: AppLanguage;
   textSize: TextSizePreference;
+  defaultAreaUnit: AreaUnit;
   profile: AppProfile | null;
   setupCompleted: boolean;
   initialize: () => Promise<void>;
@@ -26,6 +33,7 @@ interface AppState {
 const initialPreferences = {
   language: 'mr' as const,
   textSize: 'large' as const,
+  defaultAreaUnit: 'guntha' as const,
   profile: null,
   setupCompleted: false,
 };
@@ -52,6 +60,7 @@ export const useAppStore = create<AppState>((set, get) => ({
         initializationStatus: 'ready',
         language: settings.language,
         textSize: settings.textSize,
+        defaultAreaUnit: settings.defaultAreaUnit,
         setupCompleted: settings.setupCompleted,
         profile,
       });

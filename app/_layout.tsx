@@ -51,6 +51,13 @@ export default function RootLayout() {
         <Stack.Screen name="setup/profile" />
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="settings/index" />
+        <Stack.Screen name="farms/index" />
+        <Stack.Screen name="farms/add" />
+        <Stack.Screen name="farms/[id]" />
+        <Stack.Screen name="farms/edit/[id]" />
+        <Stack.Screen name="crops/add" />
+        <Stack.Screen name="crops/[id]" />
+        <Stack.Screen name="crops/edit/[id]" />
       </Stack>
     </>
   );

@@ -1,19 +1,24 @@
 # ShetiHisab
 
-ShetiHisab is a simple, local-first farming expense and profit app built for clear one-handed use on Android. Phase 1 provides the app foundation and intentionally keeps all farming transactions as placeholders.
+ShetiHisab is a simple, local-first farming record app built for clear one-handed use on Android. Phase 2 adds farm and crop tracking while intentionally keeping financial transactions as placeholders.
 
-## Phase 1 includes
+## Current features
 
 - Two-step setup for language, name, and optional village
 - Marathi and English, with Marathi as the default
 - Normal, Large, and Extra Large text preferences
 - Local Expo SQLite storage with numbered migrations
+- Add, view, edit, and delete farms
+- Add, view, edit, complete, reactivate, and delete crops
+- Optional farm links, area, season, planting date, harvest date, and notes
+- Real farm and active-crop totals on Home
+- Recent farm and crop activity in History
 - Home, Crops, Add Entry, and History tabs
-- Minimal Settings with a two-step app-data reset
+- Settings with farm management and a two-step app-data reset
 - Accessible labels, large touch targets, readable contrast, and simple error/retry states
-- Focused tests for database setup, profile/settings persistence, setup completion, and name validation
+- Focused tests for database setup, repositories, profile/settings persistence, and form validation
 
-Phase 1 does not include farms, crop cycles, expenses, income, sales, reports, charts, exports, notifications, scanning, accounts, sync, or a backend.
+Phase 2 does not include expenses, income, sales, payments, production, profit calculations, reports, charts, exports, notifications, scanning, accounts, sync, or a backend.
 
 ## Run locally
 
@@ -40,6 +45,8 @@ npm test
 app/                    Expo Router screens
   setup/                First-time language and profile setup
   (tabs)/               Home, Crops, Add Entry, and History
+  crops/                Crop add, details, and edit screens
+  farms/                Farm list, add, details, and edit screens
   settings/             Minimal app settings
 src/
   components/           Accessible reusable UI

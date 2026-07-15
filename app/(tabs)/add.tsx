@@ -1,4 +1,5 @@
 import Feather from '@expo/vector-icons/Feather';
+import { useRouter } from 'expo-router';
 import type { ComponentProps } from 'react';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -12,30 +13,38 @@ type FeatherName = ComponentProps<typeof Feather>['name'];
 
 export default function AddEntryScreen() {
   const { t } = useTranslation();
+  const router = useRouter();
   const theme = useAppTheme();
-  const showComingSoon = () => Alert.alert(t('common.comingSoonTitle'), t('common.comingSoon'));
+  const showComingSoon = (message: string) =>
+    Alert.alert(t('common.comingSoonTitle'), message);
 
   return (
     <ScreenContainer>
       <AppHeader title={t('add.title')} />
-      <View style={[styles.choices, { gap: theme.spacing.md }]}>
+      <View style={[styles.choices, { gap: theme.spacing.md }]}> 
+        <EntryChoice
+          description={t('add.cropDescription')}
+          icon="sun"
+          onPress={() => router.push('/crops/add')}
+          title={t('add.crop')}
+        />
         <EntryChoice
           description={t('add.expenseDescription')}
           icon="arrow-up-circle"
-          onPress={showComingSoon}
+          onPress={() => showComingSoon(t('add.expensePhase'))}
           title={t('add.expense')}
         />
         <EntryChoice
           description={t('add.incomeDescription')}
           icon="arrow-down-circle"
-          onPress={showComingSoon}
+          onPress={() => showComingSoon(t('add.incomePhase'))}
           title={t('add.income')}
         />
         <EntryChoice
-          description={t('add.cropDescription')}
-          icon="sun"
-          onPress={showComingSoon}
-          title={t('add.crop')}
+          description={t('add.farmDescription')}
+          icon="map"
+          onPress={() => router.push('/farms/add')}
+          title={t('add.farm')}
         />
       </View>
     </ScreenContainer>

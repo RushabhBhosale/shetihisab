@@ -4,18 +4,18 @@ import { useTranslation } from 'react-i18next';
 import { AppText } from '@/components/app-text';
 import { useAppTheme } from '@/hooks/use-app-theme';
 
-export function LoadingScreen() {
+export function LoadingScreen({ message }: { message?: string }) {
   const { t } = useTranslation();
   const theme = useAppTheme();
 
   return (
     <View
-      accessibilityLabel={t('loading.title')}
+      accessibilityLabel={message ?? t('loading.title')}
       accessibilityLiveRegion="polite"
       style={[styles.container, { backgroundColor: theme.colors.background, gap: theme.spacing.lg }]}>
       <ActivityIndicator color={theme.colors.primary} size="large" />
       <AppText variant="heading" weight="bold" style={styles.center}>
-        {t('loading.title')}
+        {message ?? t('loading.title')}
       </AppText>
     </View>
   );

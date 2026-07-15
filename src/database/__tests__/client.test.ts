@@ -12,12 +12,8 @@ describe('database initialization', () => {
     const database = {
       execAsync: jest.fn().mockResolvedValue(undefined),
       getFirstAsync: jest.fn().mockResolvedValue({ user_version: 0 }),
-      withExclusiveTransactionAsync: jest.fn(),
+      getAllAsync: jest.fn().mockResolvedValue([]),
     } as unknown as SQLiteDatabase;
-
-    (database.withExclusiveTransactionAsync as jest.Mock).mockImplementation(
-      async (callback: (transaction: SQLiteDatabase) => Promise<void>) => callback(database),
-    );
     (SQLite.openDatabaseAsync as jest.Mock).mockResolvedValue(database);
 
     await initializeDatabase();
@@ -30,5 +26,12 @@ describe('database initialization', () => {
       expect.stringContaining('CREATE TABLE IF NOT EXISTS app_profile'),
     );
     expect(database.execAsync).toHaveBeenCalledWith('PRAGMA user_version = 1');
+    expect(database.execAsync).toHaveBeenCalledWith(
+      expect.stringContaining('CREATE TABLE IF NOT EXISTS farms'),
+    );
+    expect(database.execAsync).toHaveBeenCalledWith(
+      "ALTER TABLE app_settings ADD COLUMN default_area_unit TEXT NOT NULL DEFAULT 'guntha'",
+    );
+    expect(database.execAsync).toHaveBeenCalledWith('PRAGMA user_version = 2');
   });
 });

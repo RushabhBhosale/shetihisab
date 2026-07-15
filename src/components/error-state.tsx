@@ -7,9 +7,10 @@ import { useAppTheme } from '@/hooks/use-app-theme';
 
 interface ErrorStateProps {
   onRetry: () => void;
+  message?: string;
 }
 
-export function ErrorState({ onRetry }: ErrorStateProps) {
+export function ErrorState({ onRetry, message }: ErrorStateProps) {
   const { t } = useTranslation();
   const theme = useAppTheme();
 
@@ -18,7 +19,7 @@ export function ErrorState({ onRetry }: ErrorStateProps) {
       accessibilityLiveRegion="assertive"
       style={[styles.container, { backgroundColor: theme.colors.background, gap: theme.spacing.md }]}>
       <AppText variant="heading" weight="bold" style={styles.center}>
-        {t('common.somethingWrong')}
+        {message ?? t('common.somethingWrong')}
       </AppText>
       <AppText color="secondary" style={styles.center}>
         {t('common.pleaseTryAgain')}

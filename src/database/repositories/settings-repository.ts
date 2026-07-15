@@ -1,12 +1,13 @@
 import type { SQLiteDatabase } from 'expo-sqlite';
 
 import { getDatabase } from '@/database/client';
-import type { AppLanguage, AppSettings, TextSizePreference } from '@/types/app';
+import type { AppLanguage, AppSettings, AreaUnit, TextSizePreference } from '@/types/app';
 
 interface SettingsRow {
   id: number;
   language: AppLanguage;
   text_size: TextSizePreference;
+  default_area_unit: AreaUnit;
   setup_completed: number;
   created_at: string;
   updated_at: string;
@@ -17,6 +18,7 @@ function mapSettings(row: SettingsRow): AppSettings {
     id: row.id,
     language: row.language,
     textSize: row.text_size,
+    defaultAreaUnit: row.default_area_unit,
     setupCompleted: row.setup_completed === 1,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -30,7 +32,7 @@ async function resolveDatabase(database?: SQLiteDatabase) {
 export async function getSettings(database?: SQLiteDatabase) {
   const connection = await resolveDatabase(database);
   const row = await connection.getFirstAsync<SettingsRow>(
-    `SELECT id, language, text_size, setup_completed, created_at, updated_at
+    `SELECT id, language, text_size, default_area_unit, setup_completed, created_at, updated_at
      FROM app_settings WHERE id = ?`,
     1,
   );
@@ -82,14 +84,17 @@ export async function resetSettings(database?: SQLiteDatabase) {
   const connection = await resolveDatabase(database);
   const now = new Date().toISOString();
 
+  await connection.runAsync('DELETE FROM crops');
+  await connection.runAsync('DELETE FROM farms');
   await connection.runAsync('DELETE FROM app_profile');
   await connection.runAsync('DELETE FROM app_metadata');
   await connection.runAsync(
     `UPDATE app_settings
-     SET language = ?, text_size = ?, setup_completed = ?, updated_at = ?
+     SET language = ?, text_size = ?, default_area_unit = ?, setup_completed = ?, updated_at = ?
      WHERE id = ?`,
     'mr',
     'large',
+    'guntha',
     0,
     now,
     1,
