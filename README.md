@@ -1,6 +1,6 @@
 # ShetiHisab
 
-ShetiHisab is a simple, local-first farming record app built for clear one-handed use on Android. Phase 2 adds farm and crop tracking while intentionally keeping financial transactions as placeholders.
+ShetiHisab is a simple, local-first farming finance and crop record app built for clear one-handed use on Android.
 
 ## Current features
 
@@ -12,13 +12,19 @@ ShetiHisab is a simple, local-first farming record app built for clear one-hande
 - Add, view, edit, complete, reactivate, and delete crops
 - Optional farm links, area, season, planting date, harvest date, and notes
 - Real farm and active-crop totals on Home
-- Recent farm and crop activity in History
+- Expense tracking with categories, crop links, daily totals, and full CRUD
+- Income and sales tracking with automatic quantity × rate totals
+- Multiple payments with paid, partially paid, and pending status
+- Automatic expense, income, pending, and profit calculations
+- One-off reminders with optional local notifications
+- Chronological activity history and month/year/all-time summaries
+- Transactional local JSON backup and restore
 - Home, Crops, Add Entry, and History tabs
-- Settings with farm management and a two-step app-data reset
+- Settings with data management, backup/restore, and a two-step app-data reset
 - Accessible labels, large touch targets, readable contrast, and simple error/retry states
 - Focused tests for database setup, repositories, profile/settings persistence, and form validation
 
-Phase 2 does not include expenses, income, sales, payments, production, profit calculations, reports, charts, exports, notifications, scanning, accounts, sync, or a backend.
+The app intentionally remains local-first: there are no accounts, cloud sync, backend, charts, receipt uploads, or recurring reminders.
 
 ## Run locally
 
@@ -47,7 +53,11 @@ app/                    Expo Router screens
   (tabs)/               Home, Crops, Add Entry, and History
   crops/                Crop add, details, and edit screens
   farms/                Farm list, add, details, and edit screens
-  settings/             Minimal app settings
+  expenses/             Expense list, add, details, and edit screens
+  incomes/              Income list, add, details, and edit screens
+  payments/             Income payment add and edit screens
+  reminders/            Reminder list, add, details, and edit screens
+  settings/             App settings and backup/restore
 src/
   components/           Accessible reusable UI
   database/             SQLite client, migrations, and repositories

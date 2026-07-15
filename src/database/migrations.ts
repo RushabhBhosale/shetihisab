@@ -71,6 +71,68 @@ const phaseTwoSql = `
   CREATE INDEX IF NOT EXISTS idx_crops_farm_id ON crops(farm_id);
 `;
 
+const finalPhaseSql = `
+  CREATE TABLE IF NOT EXISTS expenses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    crop_id INTEGER,
+    category TEXT NOT NULL,
+    amount REAL NOT NULL CHECK(amount > 0),
+    expense_date TEXT NOT NULL,
+    notes TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    FOREIGN KEY (crop_id) REFERENCES crops(id) ON DELETE SET NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS incomes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    crop_id INTEGER,
+    buyer_name TEXT,
+    total_amount REAL NOT NULL CHECK(total_amount > 0),
+    amount_received REAL NOT NULL DEFAULT 0 CHECK(amount_received >= 0 AND amount_received <= total_amount),
+    quantity REAL,
+    unit TEXT,
+    rate REAL,
+    income_date TEXT NOT NULL,
+    notes TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    FOREIGN KEY (crop_id) REFERENCES crops(id) ON DELETE SET NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS payments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    income_id INTEGER NOT NULL,
+    amount REAL NOT NULL CHECK(amount > 0),
+    payment_date TEXT NOT NULL,
+    notes TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    FOREIGN KEY (income_id) REFERENCES incomes(id) ON DELETE CASCADE
+  );
+
+  CREATE TABLE IF NOT EXISTS reminders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    crop_id INTEGER,
+    title TEXT NOT NULL,
+    reminder_date TEXT NOT NULL,
+    notes TEXT,
+    is_completed INTEGER NOT NULL DEFAULT 0 CHECK(is_completed IN (0, 1)),
+    notification_id TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    FOREIGN KEY (crop_id) REFERENCES crops(id) ON DELETE SET NULL
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_expenses_date ON expenses(expense_date);
+  CREATE INDEX IF NOT EXISTS idx_expenses_crop_id ON expenses(crop_id);
+  CREATE INDEX IF NOT EXISTS idx_incomes_date ON incomes(income_date);
+  CREATE INDEX IF NOT EXISTS idx_incomes_crop_id ON incomes(crop_id);
+  CREATE INDEX IF NOT EXISTS idx_payments_income_id ON payments(income_id);
+  CREATE INDEX IF NOT EXISTS idx_reminders_date ON reminders(reminder_date, is_completed);
+  CREATE INDEX IF NOT EXISTS idx_reminders_crop_id ON reminders(crop_id);
+`;
+
 const migrations: Migration[] = [
   {
     version: 1,
@@ -91,6 +153,10 @@ const migrations: Migration[] = [
 
       await database.execAsync(phaseTwoSql);
     },
+  },
+  {
+    version: 3,
+    migrate: async (database) => database.execAsync(finalPhaseSql),
   },
 ];
 

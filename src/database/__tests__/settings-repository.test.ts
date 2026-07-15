@@ -69,12 +69,16 @@ describe('settingsRepository', () => {
 
     await resetSettings(database);
 
-    expect(database.runAsync).toHaveBeenNthCalledWith(1, 'DELETE FROM crops');
-    expect(database.runAsync).toHaveBeenNthCalledWith(2, 'DELETE FROM farms');
-    expect(database.runAsync).toHaveBeenNthCalledWith(3, 'DELETE FROM app_profile');
-    expect(database.runAsync).toHaveBeenNthCalledWith(4, 'DELETE FROM app_metadata');
+    expect(database.runAsync).toHaveBeenNthCalledWith(1, 'DELETE FROM payments');
+    expect(database.runAsync).toHaveBeenNthCalledWith(2, 'DELETE FROM reminders');
+    expect(database.runAsync).toHaveBeenNthCalledWith(3, 'DELETE FROM expenses');
+    expect(database.runAsync).toHaveBeenNthCalledWith(4, 'DELETE FROM incomes');
+    expect(database.runAsync).toHaveBeenNthCalledWith(5, 'DELETE FROM crops');
+    expect(database.runAsync).toHaveBeenNthCalledWith(6, 'DELETE FROM farms');
+    expect(database.runAsync).toHaveBeenNthCalledWith(7, 'DELETE FROM app_profile');
+    expect(database.runAsync).toHaveBeenNthCalledWith(8, 'DELETE FROM app_metadata');
     expect(database.runAsync).toHaveBeenNthCalledWith(
-      5,
+      9,
       expect.stringContaining('SET language = ?'),
       'mr',
       'large',

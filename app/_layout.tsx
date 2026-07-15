@@ -51,6 +51,7 @@ export default function RootLayout() {
         <Stack.Screen name="setup/profile" />
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="settings/index" />
+        <Stack.Screen name="settings/backup" />
         <Stack.Screen name="farms/index" />
         <Stack.Screen name="farms/add" />
         <Stack.Screen name="farms/[id]" />
@@ -58,6 +59,21 @@ export default function RootLayout() {
         <Stack.Screen name="crops/add" />
         <Stack.Screen name="crops/[id]" />
         <Stack.Screen name="crops/edit/[id]" />
+        <Stack.Screen name="expenses/index" />
+        <Stack.Screen name="expenses/add" />
+        <Stack.Screen name="expenses/[id]" />
+        <Stack.Screen name="expenses/edit/[id]" />
+        <Stack.Screen name="incomes/index" />
+        <Stack.Screen name="incomes/add" />
+        <Stack.Screen name="incomes/[id]" />
+        <Stack.Screen name="incomes/edit/[id]" />
+        <Stack.Screen name="payments/add" />
+        <Stack.Screen name="payments/edit/[id]" />
+        <Stack.Screen name="reminders/index" />
+        <Stack.Screen name="reminders/add" />
+        <Stack.Screen name="reminders/[id]" />
+        <Stack.Screen name="reminders/edit/[id]" />
+        <Stack.Screen name="summary" />
       </Stack>
     </>
   );

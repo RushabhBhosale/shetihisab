@@ -84,6 +84,10 @@ export async function resetSettings(database?: SQLiteDatabase) {
   const connection = await resolveDatabase(database);
   const now = new Date().toISOString();
 
+  await connection.runAsync('DELETE FROM payments');
+  await connection.runAsync('DELETE FROM reminders');
+  await connection.runAsync('DELETE FROM expenses');
+  await connection.runAsync('DELETE FROM incomes');
   await connection.runAsync('DELETE FROM crops');
   await connection.runAsync('DELETE FROM farms');
   await connection.runAsync('DELETE FROM app_profile');

@@ -37,6 +37,14 @@ export function formatDate(date: string | null, language: AppLanguage) {
   }).format(parsed);
 }
 
+export function formatCurrency(amount: number, language: AppLanguage) {
+  return new Intl.NumberFormat(localeFor(language), {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 2,
+  }).format(amount);
+}
+
 export function toIsoDate(date: Date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -51,4 +59,8 @@ export function parseIsoDate(value: string | null) {
 
   const parsed = new Date(`${value}T00:00:00`);
   return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+}
+
+export function todayIsoDate() {
+  return toIsoDate(new Date());
 }

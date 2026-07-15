@@ -257,7 +257,43 @@ export default function SettingsScreen() {
           <SettingRow
             icon="map"
             label={t('settings.manageFarms')}
+            navigation
             onPress={() => router.push('/farms')}
+          />
+
+          <SettingRow
+            icon="arrow-up-circle"
+            label={t('expenses.title')}
+            navigation
+            onPress={() => router.push('/expenses')}
+          />
+
+          <SettingRow
+            icon="arrow-down-circle"
+            label={t('incomes.title')}
+            navigation
+            onPress={() => router.push('/incomes')}
+          />
+
+          <SettingRow
+            icon="bell"
+            label={t('reminders.title')}
+            navigation
+            onPress={() => router.push('/reminders')}
+          />
+
+          <SettingRow
+            icon="list"
+            label={t('summary.title')}
+            navigation
+            onPress={() => router.push('/summary')}
+          />
+
+          <SettingRow
+            icon="archive"
+            label={t('backup.title')}
+            navigation
+            onPress={() => router.push('/settings/backup')}
           />
 
           <SettingRow

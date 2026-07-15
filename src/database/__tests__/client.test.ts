@@ -33,5 +33,12 @@ describe('database initialization', () => {
       "ALTER TABLE app_settings ADD COLUMN default_area_unit TEXT NOT NULL DEFAULT 'guntha'",
     );
     expect(database.execAsync).toHaveBeenCalledWith('PRAGMA user_version = 2');
+    expect(database.execAsync).toHaveBeenCalledWith(
+      expect.stringContaining('CREATE TABLE IF NOT EXISTS expenses'),
+    );
+    expect(database.execAsync).toHaveBeenCalledWith(
+      expect.stringContaining('CREATE TABLE IF NOT EXISTS payments'),
+    );
+    expect(database.execAsync).toHaveBeenCalledWith('PRAGMA user_version = 3');
   });
 });

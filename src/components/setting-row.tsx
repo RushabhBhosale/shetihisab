@@ -13,6 +13,7 @@ interface SettingRowProps {
   value?: string;
   danger?: boolean;
   expanded?: boolean;
+  navigation?: boolean;
   onPress: () => void;
 }
 
@@ -22,6 +23,7 @@ export function SettingRow({
   value,
   danger = false,
   expanded = false,
+  navigation = false,
   onPress,
 }: SettingRowProps) {
   const theme = useAppTheme();
@@ -30,7 +32,7 @@ export function SettingRow({
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityState={{ expanded }}
+      accessibilityState={navigation ? undefined : { expanded }}
       onPress={onPress}
       style={({ pressed }) => [
         styles.row,
@@ -54,7 +56,11 @@ export function SettingRow({
           </AppText>
         ) : null}
       </View>
-      <Feather color={color} name={expanded ? 'chevron-up' : 'chevron-down'} size={26} />
+      <Feather
+        color={color}
+        name={navigation ? 'chevron-right' : expanded ? 'chevron-up' : 'chevron-down'}
+        size={26}
+      />
     </Pressable>
   );
 }

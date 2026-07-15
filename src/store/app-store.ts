@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 import { initializeDatabase } from '@/database/client';
 import { profileRepository } from '@/database/repositories/profile-repository';
+import { reminderRepository } from '@/database/repositories/reminder-repository';
 import { settingsRepository } from '@/database/repositories/settings-repository';
 import { changeAppLanguage } from '@/i18n';
 import type {
@@ -11,6 +12,7 @@ import type {
   ProfileInput,
   TextSizePreference,
 } from '@/types/app';
+import { cancelReminderNotification } from '@/services/notification-service';
 
 type InitializationStatus = 'idle' | 'loading' | 'ready' | 'error';
 
@@ -99,7 +101,11 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   resetApp: async () => {
+    const reminders = await reminderRepository.getAllReminders();
     await settingsRepository.resetSettings();
+    await Promise.all(
+      reminders.map((reminder) => cancelReminderNotification(reminder.notificationId)),
+    );
     await changeAppLanguage('mr');
     set({
       initializationStatus: 'ready',

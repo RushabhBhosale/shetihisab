@@ -1,4 +1,3 @@
-import Feather from '@expo/vector-icons/Feather';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
@@ -8,6 +7,7 @@ import { AppHeader } from '@/components/app-header';
 import { AppText } from '@/components/app-text';
 import { ConfirmationDialog } from '@/components/confirmation-dialog';
 import { CropCard } from '@/components/crop-card';
+import { DetailRow } from '@/components/detail-row';
 import { ErrorState } from '@/components/error-state';
 import { LargeButton } from '@/components/large-button';
 import { LoadingScreen } from '@/components/loading-screen';
@@ -136,23 +136,8 @@ export default function FarmDetailsScreen() {
   );
 }
 
-function DetailRow({ icon, label, value }: { icon: 'map-pin' | 'maximize' | 'sun' | 'file-text'; label: string; value: string }) {
-  const theme = useAppTheme();
-  return (
-    <View style={styles.detailRow}>
-      <Feather color={theme.colors.primary} name={icon} size={27} />
-      <View style={styles.detailText}>
-        <AppText color="secondary" variant="small" weight="semibold">{label}</AppText>
-        <AppText>{value}</AppText>
-      </View>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   details: { width: '100%' },
-  detailRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
-  detailText: { flex: 1 },
   actions: { width: '100%' },
   crops: { width: '100%' },
   center: { textAlign: 'center' },

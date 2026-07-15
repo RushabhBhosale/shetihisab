@@ -1,7 +1,7 @@
 import Feather from '@expo/vector-icons/Feather';
 import { useRouter } from 'expo-router';
 import type { ComponentProps } from 'react';
-import { Alert, Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { AppHeader } from '@/components/app-header';
@@ -15,8 +15,6 @@ export default function AddEntryScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const theme = useAppTheme();
-  const showComingSoon = (message: string) =>
-    Alert.alert(t('common.comingSoonTitle'), message);
 
   return (
     <ScreenContainer>
@@ -31,13 +29,13 @@ export default function AddEntryScreen() {
         <EntryChoice
           description={t('add.expenseDescription')}
           icon="arrow-up-circle"
-          onPress={() => showComingSoon(t('add.expensePhase'))}
+          onPress={() => router.push('/expenses/add')}
           title={t('add.expense')}
         />
         <EntryChoice
           description={t('add.incomeDescription')}
           icon="arrow-down-circle"
-          onPress={() => showComingSoon(t('add.incomePhase'))}
+          onPress={() => router.push('/incomes/add')}
           title={t('add.income')}
         />
         <EntryChoice
