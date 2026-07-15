@@ -1,56 +1,53 @@
-# Welcome to your Expo app 👋
+# ShetiHisab
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+ShetiHisab is a simple, local-first farming expense and profit app built for clear one-handed use on Android. Phase 1 provides the app foundation and intentionally keeps all farming transactions as placeholders.
 
-## Get started
+## Phase 1 includes
 
-1. Install dependencies
+- Two-step setup for language, name, and optional village
+- Marathi and English, with Marathi as the default
+- Normal, Large, and Extra Large text preferences
+- Local Expo SQLite storage with numbered migrations
+- Home, Crops, Add Entry, and History tabs
+- Minimal Settings with a two-step app-data reset
+- Accessible labels, large touch targets, readable contrast, and simple error/retry states
+- Focused tests for database setup, profile/settings persistence, setup completion, and name validation
 
-   ```bash
-   npm install
-   ```
+Phase 1 does not include farms, crop cycles, expenses, income, sales, reports, charts, exports, notifications, scanning, accounts, sync, or a backend.
 
-2. Start the app
+## Run locally
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+This project uses Expo SDK 57 and requires Node.js 22.13 or newer.
 
 ```bash
-npm run reset-project
+npm install
+npm run android
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+You can also start the development server with `npm start` and then choose an Android device or emulator.
 
-### Other setup steps
+## Checks
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+npm run typecheck
+npm run lint
+npm test
+```
 
-## Learn more
+## Project layout
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```text
+app/                    Expo Router screens
+  setup/                First-time language and profile setup
+  (tabs)/               Home, Crops, Add Entry, and History
+  settings/             Minimal app settings
+src/
+  components/           Accessible reusable UI
+  database/             SQLite client, migrations, and repositories
+  features/             Feature-specific validation
+  hooks/                Shared hooks
+  i18n/                 English and Marathi translations
+  store/                Small Zustand app state
+  theme/                Light theme and text scales
+  types/                Shared app types
+```
